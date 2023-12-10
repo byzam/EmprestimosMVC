@@ -1,3 +1,6 @@
+using EmprestimosMVC.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace EmprestimosMVC
 {
     public class Program
@@ -8,7 +11,13 @@ namespace EmprestimosMVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            //teste
+
+            builder.Services.AddDbContext<AplicationDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefautConnection"));
+            }
+            );
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
