@@ -70,8 +70,12 @@ namespace EmprestimosMVC.Controllers
                 _db.Emprestimos.Add(emprestimos);
                 _db.SaveChanges();
 
+                TempData["MensagemSucesso"] = "Cadastro realizado com sucesso!";
+
                 return RedirectToAction("Index");
             }
+
+            TempData["MensagemErro"] = "Erro fatal";
 
             return View();
 
@@ -85,8 +89,12 @@ namespace EmprestimosMVC.Controllers
                 _db.Emprestimos.Update(emprestimo);
                 _db.SaveChanges();
 
+                TempData["MensagemSucesso"] = "Edição realizado com sucesso!";
+
                 return RedirectToAction("Index");
             }
+
+            TempData["MensagemErro"] = "Erro fatal";
 
             return View(emprestimo);
         }
@@ -102,6 +110,8 @@ namespace EmprestimosMVC.Controllers
 
             _db.Emprestimos.Remove(emprestimo);
             _db.SaveChanges();
+
+            TempData["MensagemSucesso"] = "Remoção realizada com sucesso!";
 
             return RedirectToAction("Index");
         }
