@@ -14,7 +14,7 @@ namespace EmprestimosMVC.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("AqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Recebedor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fornecedor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LivroEmprestado = table.Column<string>(type: "nvarchar(max)", nullable: false),
