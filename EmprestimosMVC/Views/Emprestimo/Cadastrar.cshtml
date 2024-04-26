@@ -31,6 +31,7 @@
             <label for="Livro" class="form-label text-light">Livro</label>
             <input type="text" class="form-control" asp-for="LivroEmprestado" id="Livro" placeholder="Qual livro está sendo emprestado.">
             <span class="text-danger" asp-validation-for="LivroEmprestado"></span>
+            <a asp-controller="APIBooks" asp-action="Pesquisar" class="btn btn-primary w-10 my-2">Pesquisar</a>
         </div>
 
         <div class="d-flex gap-5 mt-5">
@@ -41,3 +42,12 @@
 
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var livroTitulo = '@Html.Raw(ViewData["livroSelecionado"])';
+        if (livroTitulo) {
+            document.querySelector("#Livro").value = livroTitulo;
+        }
+    });
+</script>
