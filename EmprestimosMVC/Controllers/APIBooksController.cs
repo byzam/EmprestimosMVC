@@ -52,17 +52,30 @@ namespace EmprestimosMVC.Controllers
                 JToken jsonObject = JToken.Parse(jsonContent);
 
                 // Extrair os títulos e os autores dos itens
-                
+
                 foreach (var item in jsonObject["items"])
                 {
+                    var volumeInfo = item.Value<JObject>("volumeInfo");
+
                     var livro = new APIBooksModel
                     {
                         Titulo = item["volumeInfo"]["title"].ToString(),
-                        //Autores = item["volumeInfo"]["authors"] != null ? item["volumeInfo"]["authors"].Select(author => author.ToString()).ToList() : new List<string>()
+                        Autores = string.Empty // inicialize com uma string vazia
                     };
+
+                    if (volumeInfo["authors"] != null)
+                    {
+                        livro.Autores = item["volumeInfo"]["authors"].SelectToken("$[0]").ToString();
+                    }
+                    else
+                    {
+                        livro.Autores = "Desconhecido";
+                    }
+
                     apiBooksListModel.Livros.Add(livro);
                 }
-
+                //!= null ? item["volumeInfo"]["authors"].Select(author => author.ToString()).ToList() : new List<string>()
+                //= item["volumeInfo"]["authors"].SelectToken("$[0]").ToString(),
                 // Retorne o objeto Livros como JSON
                 return View("~/Views/Emprestimo/APIBooks.cshtml", apiBooksListModel);
             }

@@ -13,7 +13,7 @@
     <form method="get" asp-controller="APIBooks" asp-action="Pesquisar" class="form-pesquisa">
 
         <div class="mb-3">
-            <label for="Recebedor" class="form-label text-light">Recebedor</label>
+            <label for="Recebedor" class="form-label text-light">Pesquise por nome, autor, ou ano.</label>
             <input type="text" class="form-control" name="termo" value="@HttpContextAccessor.HttpContext.Request.Query["termo"]" placeholder="Pesquise o livro.">
             <button type="submit" name="submitPesquisa" class="btn btn-success w-50 my-2">Pesquisar</button>
             <span class="text-danger" asp-validation-for="Livros"></span>
@@ -28,7 +28,7 @@
                 <option value="">Selecione um livro</option>
                 @foreach (var livro in Model.Livros)
                 {
-                    <option value="@livro.Titulo">@livro.Titulo</option>
+                    <option value="@livro.Titulo">@livro.Titulo - @livro.Autores</option>
                 }
             </select>
         }
@@ -43,7 +43,7 @@
         </div>
 
     </form>
-        
+
 </div>
 
 <script>
@@ -53,41 +53,3 @@
         window.location.search = "?termo=" + encodeURIComponent(termo);
     });
 </script>
-
-@* <script>
-    document.querySelector("#form-emprestimo").addEventListener("submit", function (event) {
-        event.preventDefault();
-        var livroSelecionado = document.querySelector("#livroPesquisa").value;
-        var formData = new FormData(this);
-        formData.append("livroSelecionado", livroSelecionado);
-        var url = this.action + "?livroSelecionado=" + encodeURIComponent(livroSelecionado);
-        fetch(url, {
-            method: "GET",
-            body: formData
-        }).then(function (response) {
-            if (response.ok) {
-                window.location.href = response.url;
-            } else {
-                throw new Error("Erro ao enviar o formulário.");
-            }
-        }).catch(function (error) {
-            console.error(error);
-            alert("Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.");
-        });
-    });
-</script> *@
-
-@* <script>
-    document.querySelector("#form-emprestimo").addEventListener("submit", function (event) {
-        event.preventDefault();
-        var livroId = document.querySelector("#livroPesquisa").value;
-        var livroTitulo = document.querySelector("#livroPesquisa option:selected").text;
-        var form = document.querySelector("#form-emprestimo");
-        var inputLivro = document.createElement("input");
-        inputLivro.type = "hidden";
-        inputLivro.name = "Livro";
-        inputLivro.value = livroTitulo;
-        form.appendChild(inputLivro);
-        this.submit();
-    });
-</script> *@

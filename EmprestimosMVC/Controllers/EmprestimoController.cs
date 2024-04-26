@@ -1,6 +1,8 @@
-﻿using EmprestimosMVC.Data;
+﻿using ClosedXML.Excel;
+using EmprestimosMVC.Data;
 using EmprestimosMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace EmprestimosMVC.Controllers
 {
@@ -62,11 +64,56 @@ namespace EmprestimosMVC.Controllers
             return View(emprestimo);
         }
 
+        [HttpGet]
+        public IActionResult Exportar(int? id)
+        {
+            var dados = GetDados();
+
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                workbook.AddWorksheet(dados, "Dados Empréstimos");
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    workbook.SaveAs(ms);
+                    return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreedsheetml.sheet", "Empréstimo");
+                }
+
+            }
+        }
+
+        private DataTable GetDados()
+        {
+            DataTable dataTable = new DataTable();
+
+            dataTable.TableName = "Dados Empréstimos";
+            dataTable.Columns.Add("Recebedor", typeof(string));
+            dataTable.Columns.Add("Fornecedor", typeof(string));
+            dataTable.Columns.Add("Livro", typeof(string));
+            dataTable.Columns.Add("Data de Empréstimo", typeof(DateTime));
+
+            var dados = _db.Emprestimos.ToList();
+            
+            if(dados.Count > 0)
+            {
+                dados.ForEach(emprestimo =>
+                {
+                    dataTable.Rows.Add(emprestimo.Recebedor, emprestimo.Fornecedor, emprestimo.LivroEmprestado, emprestimo.DataUltimaAtualizacao);
+                });
+            }
+
+
+
+            return dataTable;
+        }
+
         [HttpPost]
         public IActionResult Cadastrar(EmprestimosModel emprestimos)
         {
             if(ModelState.IsValid)
             {
+                emprestimos.DataUltimaAtualizacao = DateTime.Now;
+
                 _db.Emprestimos.Add(emprestimos);
                 _db.SaveChanges();
 
@@ -86,7 +133,13 @@ namespace EmprestimosMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Emprestimos.Update(emprestimo);
+                var emprestimoDB = _db.Emprestimos.Find(emprestimo.id);
+
+                emprestimoDB.Fornecedor = emprestimo.Fornecedor;
+                emprestimoDB.Recebedor = emprestimo.Recebedor;
+                emprestimoDB.LivroEmprestado = emprestimo.LivroEmprestado;
+
+                _db.Emprestimos.Update(emprestimoDB);
                 _db.SaveChanges();
 
                 TempData["MensagemSucesso"] = "Edição realizado com sucesso!";
