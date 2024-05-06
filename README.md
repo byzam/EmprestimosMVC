@@ -34,11 +34,11 @@ Onde ficam os arquivos .cshtml que serão as telas na aplicação, como a Home, 
 - **EmprestimosMVC.csproj e appsettings.Development.json** Dados de configuração do ambiente, criado automaticamente pelo Visual Studio.
 
 ## Layout
-![Layout 1](https://github.com/vitorluisz/EmprestimosMVC/tree/source/EmprestimosMVC/wwwroot/img/Screenshot_64.png)
-![Layout 2](https://github.com/vitorluisz/EmprestimosMVC/tree/source/EmprestimosMVC/wwwroot/img/Screenshot_65.png)
-![Layout 3](https://github.com/vitorluisz/EmprestimosMVC/tree/source/EmprestimosMVC/wwwroot/img/Screenshot_66.png)
-![Layout 4](https://github.com/vitorluisz/EmprestimosMVC/tree/source/EmprestimosMVC/wwwroot/img/Screenshot_67.png)
-![Layout 5](https://github.com/vitorluisz/EmprestimosMVC/tree/source/EmprestimosMVC/wwwroot/img/Screenshot_68.png)
+![Layout 1](https://raw.githubusercontent.com/vitorluisz/EmprestimosMVC/source/EmprestimosMVC/wwwroot/img/Screenshot_64.png)
+![Layout 2](https://raw.githubusercontent.com/vitorluisz/EmprestimosMVC/source/EmprestimosMVC/wwwroot/img/Screenshot_65.png)
+![Layout 3](https://raw.githubusercontent.com/vitorluisz/EmprestimosMVC/source/EmprestimosMVC/wwwroot/img/Screenshot_66.png)
+![Layout 4](https://raw.githubusercontent.com/vitorluisz/EmprestimosMVC/source/EmprestimosMVC/wwwroot/img/Screenshot_67.png)
+![Layout 5](https://raw.githubusercontent.com/vitorluisz/EmprestimosMVC/source/EmprestimosMVC/wwwroot/img/Screenshot_68.png)
 
 # Como executar o projeto
 ```bash
